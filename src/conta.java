@@ -7,15 +7,31 @@ public abstract class conta implements Iconta {
     protected double saldo;
     protected cliente cliente;
 
-    public conta() {
+    protected String tipoConta;
+    public enum tiposConta {
+        CONTAPOUPANCA("Conta Poupança"), CONTACORRENTE("Conta Corrente");
+
+        private final String text;
+        tiposConta(final String text){
+            this.text = text;
+        }
+        @Override
+        public String toString(){
+            return text;
+        }
+    }
+
+    public conta(cliente cliente) {
         this.agencia = AGENCIA_PADRAO;
         this.numero = SEQUENCIAL++;
+        this.cliente = cliente;
     }
 
     protected void imprimirInfoComum(){
-        System.out.println(String.format("Agencia: %d", this.agencia));
-        System.out.println(String.format("Numero: %d", this.numero));
-        System.out.println(String.format("Saldo: %.2f", this.saldo));
+        System.out.printf("Nome Cliente: %s%n", this.cliente.getNome());
+        System.out.printf("Agencia: %d%n", this.agencia);
+        System.out.printf("Numero: %d%n", this.numero);
+        System.out.printf("Saldo: %.2f%n", this.saldo);
     }
 
     @Override
@@ -44,5 +60,13 @@ public abstract class conta implements Iconta {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    public cliente getCliente() {
+        return cliente;
+    }
+
+    public String getTipoConta() {
+        return tipoConta;
     }
 }
